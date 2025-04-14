@@ -12,34 +12,37 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
-import environ
+# import dj_database_url
+# import environ
 
-env = environ.Env(
-    DEBUG=(bool, False)  # Set default for DEBUG to False
-)
+# env = environ.Env(
+#     DEBUG=(bool, False)  # Set default for DEBUG to False
+# )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
-DATABASES = {
-    'default': dj_database_url.parse(env('DATABASE_URL'))
-}
+# DATABASES = {
+#     'default': dj_database_url.parse(env('DATABASE_URL'))
+# }
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+# SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = 'django-insecure-(gee@d34)!iwlkj5b(tg3e(h%e@j03yyzk645i1q0w5=v*tw5w'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+# DEBUG = env('DEBUG')
+DEBUG  = True
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -80,7 +83,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'backend/templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -189,12 +192,12 @@ CSRF_USE_SESSIONS = False
 
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = env('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
-EMAIL_HOST = env('EMAIL_HOST', default='')
-EMAIL_PORT = env.int('EMAIL_PORT', default=587)
-EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', default=True)
-EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')
+EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER = 'okwirfrancis2010@gmail.com'
+EMAIL_HOST_PASSWORD ='pptl jkld aodn cmrtWORD'
  
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -205,8 +208,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = '' \
-'static/'
+STATIC_URL = 'static/'
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For collectstatic
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static'),  # For React/Vite files
