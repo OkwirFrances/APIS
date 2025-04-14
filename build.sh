@@ -3,6 +3,8 @@
 # Exit on any error
 set -o errexit
 
+export PYTHONPATH="$PYTHONPATH:$PWD/backend"
+
 pip install -r requirements.txt
 
 export DJANGO_SETTINGS_MODULE=backend.settings
