@@ -4,6 +4,7 @@
 set -o errexit
 
 export PYTHONPATH="$PYTHONPATH:$PWD/backend"
+export DJANGO_SETTINGS_MODULE=backend.settings
 
 pip install -r requirements.txt
 
