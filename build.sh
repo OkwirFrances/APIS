@@ -5,6 +5,8 @@ set -o errexit
 
 pip install -r requirements.txt
 
+export DJANGO_SETTINGS_MODULE=backend.settings
+
 
 # python manage.py makemigrations
 python manage.py migrate
