@@ -103,11 +103,18 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://aits_inmj_user:HN9SUxeKRCp0LgHoXUX1kgvMyskkYYf3@dpg-cvsgfl95pdvs73bl9ck0-a.oregon-postgres.render.com/aits_inmj',
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 
