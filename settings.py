@@ -12,32 +12,26 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-
-
-# DATABASES = {
-#     'default': dj_database_url.parse(env('DATABASE_URL'))
-# }
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = env('SECRET_KEY')
 SECRET_KEY = 'django-insecure-(gee@d34)!iwlkj5b(tg3e(h%e@j03yyzk645i1q0w5=v*tw5w'
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = env('DEBUG')
-DEBUG  = True
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'localhost:5173',
+    'localhost',
+    'groupaaits.onrender.com'
+    ]
 
-
-
+# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -46,22 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'backend.api',
+    'api',
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
     'django_otp',
     'django_otp.plugins.otp_totp',
-    
-    
-    
 ]
 
 MIDDLEWARE = [
-    'django_otp.middleware.OTPMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -72,10 +61,19 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'backend.urls'
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For collecting static files in production
+STATICFILES_DIRS = [
+    os.path.join(STATIC_ROOT, 'reactapp'),  # This is where your React build files will be located
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ os.path.join(STATIC_ROOT, 'reactapp') ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -94,18 +92,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://aits_inmj_user:HN9SUxeKRCp0LgHoXUX1kgvMyskkYYf3@dpg-cvsgfl95pdvs73bl9ck0-a.oregon-postgres.render.com/aits_inmj',
-        conn_max_age=600,
-        ssl_require=True
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 
@@ -139,15 +130,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-# STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -172,14 +154,14 @@ REST_FRAMEWORK = {
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=600),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     
 }
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    
+    'https://groupaaits.onrender.com'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -189,32 +171,11 @@ CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = False
 CSRF_USE_SESSIONS = False
 
-
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  
 EMAIL_PORT = 587  
 EMAIL_USE_TLS = True  
 EMAIL_HOST_USER = 'okwirfrancis2010@gmail.com'  
-EMAIL_HOST_PASSWORD = 'pptl jkld aodn cmrt'
- 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# print("DATABASE_URL:", env('DATABASE_URL', default=None))
-
-# settings.py
-
-
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For collectstatic
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static'),  # For React/Vite files
-#     os.path.join(BASE_DIR.parent, 'frontend/dist')  # Direct Vite output path
-# ]
-
-# WhiteNoise configuration
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+EMAIL_HOST_PASSWORD = 'pptl jkld aodn cmrt'  
